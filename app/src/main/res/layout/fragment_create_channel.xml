@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/create_channel_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="뒤로" />
+
+    <TextView
+        android:id="@+id/text_create_channel_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="가족 채널 만들기"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/edit_channel_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="채널 이름 입력"
+        android:inputType="textPersonName"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="다음" />
+
+</LinearLayout>

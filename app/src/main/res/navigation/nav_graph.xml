@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.familysns.ui.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_createChannelFragment"
+            app:destination="@id/createChannelFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/albumFragment"
+        android:name="com.example.familysns.ui.AlbumFragment"
+        android:label="fragment_album"
+        tools:layout="@layout/fragment_album" />
+
+    <fragment
+        android:id="@+id/myPageFragment"
+        android:name="com.example.familysns.ui.MyPageFragment"
+        android:label="fragment_my_page"
+        tools:layout="@layout/fragment_my_page" />
+
+    <fragment
+        android:id="@+id/createChannelFragment"
+        android:name="com.example.familysns.ui.CreateChannelFragment"
+        android:label="fragment_create_channel"
+        tools:layout="@layout/fragment_create_channel" />
+    <action
+        android:id="@+id/action_createChannelFragment_to_inviteFragment"
+        app:destination="@id/inviteFragment" />
+
+    <fragment
+        android:id="@+id/inviteFragment"
+        android:name="com.example.familysns.ui.InviteFragment"
+        android:label="fragment_invite"
+        tools:layout="@layout/fragment_invite" />
+</navigation>
