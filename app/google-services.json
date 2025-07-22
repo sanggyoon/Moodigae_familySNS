@@ -12,7 +12,20 @@
           "package_name": "com.example.familysns"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "575881230993-d1niuiqdh3v2svoja0h8b720kvn6tlpo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.familysns",
+            "certificate_hash": "5fc683d0dd8a5cfde707a1bde2f3375b49db3715"
+          }
+        },
+        {
+          "client_id": "575881230993-m47e8qt8utbgr49liccvmjbpfk33gpkb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyD-wpKRQJQ9sbq12pj5cWVa3fdosldvG4w"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "575881230993-m47e8qt8utbgr49liccvmjbpfk33gpkb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
