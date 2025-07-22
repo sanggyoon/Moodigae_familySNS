@@ -18,7 +18,29 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-        NavigationUI.setupWithNavController(bottomNav, navController)
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.homeFragment -> {
+                    if (!navController.popBackStack(R.id.homeFragment, false)) {
+                        navController.navigate(R.id.homeFragment)
+                    }
+                    true
+                }
+                R.id.albumFragment -> {
+                    if (!navController.popBackStack(R.id.albumFragment, false)) {
+                        navController.navigate(R.id.albumFragment)
+                    }
+                    true
+                }
+                R.id.myPageFragment -> {
+                    if (!navController.popBackStack(R.id.myPageFragment, false)) {
+                        navController.navigate(R.id.myPageFragment)
+                    }
+                    true
+                }
+                else -> false
+            }
+        }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             bottomNav.visibility = when (destination.id) {
