@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
 
+    id("androidx.navigation.safeargs.kotlin")
+    
     // Add the Google services Gradle plugin
     id("com.google.gms.google-services")
 }

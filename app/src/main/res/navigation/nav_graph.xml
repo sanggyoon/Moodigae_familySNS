@@ -19,7 +19,11 @@
         android:id="@+id/familyHomeFragment"
         android:name="com.example.familysns.ui.FamilyHomeFragment"
         android:label="fragment_family_home"
-        tools:layout="@layout/fragment_family_home" />
+        tools:layout="@layout/fragment_family_home">
+        <action
+            android:id="@+id/action_familyHomeFragment_to_postCreateFragment"
+            app:destination="@id/postCreateFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/albumFragment"
@@ -47,4 +51,25 @@
         android:name="com.example.familysns.ui.InviteFragment"
         android:label="fragment_invite"
         tools:layout="@layout/fragment_invite" />
+
+    <fragment
+        android:id="@+id/postCreateFragment"
+        android:name="com.example.familysns.ui.PostCreateFragment"
+        android:label="fragment_post_create"
+        tools:layout="@layout/fragment_post_create">
+        <action
+            android:id="@+id/action_postCreateFragment_to_postWriteFragment"
+            app:destination="@id/postWriteFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/postWriteFragment"
+        android:name="com.example.familysns.ui.PostWriteFragment"
+        android:label="fragment_post_write"
+        tools:layout="@layout/fragment_post_write">
+
+        <argument
+            android:name="imageUri"
+            app:argType="string" />
+    </fragment>
 </navigation>

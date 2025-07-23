@@ -69,7 +69,6 @@
                 android:orientation="horizontal" />
         </HorizontalScrollView>
 
-        <!-- 소식 공유하기 버튼 -->
         <Button
             android:id="@+id/btn_share_post"
             android:layout_width="wrap_content"
