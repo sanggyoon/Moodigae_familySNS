@@ -2,4 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- 커스텀 색상 추가 -->
+    <color name="button_text_blue">#3568D6</color>
+    <color name="text_gray">#666666</color>
+
+    <!-- bottom navigation 색상 추가 -->
+    <color name="nav_shadow">#40000000</color>  <!-- 25% 투명도로 변경 -->
+    <color name="nav_background">#FCFCFC</color>
+
+    <!-- 전체화면 배경 색상 -->
+    <color name="background_color">#F7F7F8</color>
 </resources>

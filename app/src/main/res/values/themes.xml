@@ -2,7 +2,15 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.FamilySNS" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/button_text_blue</item>
+        <item name="colorPrimaryVariant">@color/button_text_blue</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/button_text_blue</item>
+        <item name="colorSecondaryVariant">@color/button_text_blue</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowBackground">@color/background_color</item>
     </style>
 
     <style name="Theme.FamilySNS" parent="Base.Theme.FamilySNS" />

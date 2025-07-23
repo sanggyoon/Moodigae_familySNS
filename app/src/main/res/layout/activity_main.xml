@@ -14,18 +14,31 @@
         app:navGraph="@navigation/nav_graph"
         app:defaultNavHost="true"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation_card"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- 하단 메뉴 -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+    <!-- 하단 메뉴 (CardView로 감싸기) -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/bottom_navigation_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/bottom_nav_menu"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginBottom="20dp"
+        android:maxWidth="388dp"
+        app:cardElevation="12dp"
+        app:cardCornerRadius="24dp"
+        app:cardBackgroundColor="@color/nav_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:background="@android:color/transparent"
+            app:menu="@menu/bottom_nav_menu" />
+
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
