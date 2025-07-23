@@ -71,12 +71,47 @@ class LoginFragment : Fragment() {
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     Log.d(TAG, "signInWithCredential:success")
-                    val intent = Intent(requireContext(), MainActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
+
+                    val user = auth.currentUser
+                    if (user != null) {
+                        val db = com.google.firebase.firestore.FirebaseFirestore.getInstance()
+                        val userRef = db.collection("users").document(user.uid)
+
+                        userRef.get().addOnSuccessListener { document ->
+                            if (!document.exists()) {
+                                val userDoc = hashMapOf(
+                                    "uid" to user.uid,
+                                    "name" to user.displayName,
+                                    "email" to user.email,
+                                    "photoUrl" to user.photoUrl?.toString(),
+                                    "familyId" to emptyList<String>()
+                                )
+
+                                userRef.set(userDoc)
+                                    .addOnSuccessListener {
+                                        Log.d(TAG, "사용자 정보 저장 완료")
+                                        navigateToMain(emptyList<String>())  // 새 유저는 familyId 없음
+                                    }
+                                    .addOnFailureListener {
+                                        Log.w(TAG, "사용자 정보 저장 실패", it)
+                                    }
+                            } else {
+                                val familyId = document.get("familyId") as? List<*>
+                                navigateToMain(familyId)
+                            }
+                        }
+                    }
                 } else {
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                 }
             }
+    }
+
+    private fun navigateToMain(familyIdList: List<*>?) {
+        val intent = Intent(requireContext(), MainActivity::class.java).apply {
+            putExtra("hasFamily", !familyIdList.isNullOrEmpty())
+        }
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 }

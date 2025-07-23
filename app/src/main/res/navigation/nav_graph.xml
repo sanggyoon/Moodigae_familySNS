@@ -16,6 +16,12 @@
     </fragment>
 
     <fragment
+        android:id="@+id/familyHomeFragment"
+        android:name="com.example.familysns.ui.FamilyHomeFragment"
+        android:label="fragment_family_home"
+        tools:layout="@layout/fragment_family_home" />
+
+    <fragment
         android:id="@+id/albumFragment"
         android:name="com.example.familysns.ui.AlbumFragment"
         android:label="fragment_album"

@@ -4,18 +4,35 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import android.util.Log
+import androidx.navigation.NavController
+import androidx.navigation.NavGraph
+import androidx.navigation.fragment.findNavController
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val hasFamily = intent.getBooleanExtra("hasFamily", false)
+
+        // NavController 및 NavGraph 구성
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
+        val navController: NavController = navHostFragment.navController
+        val navInflater = navController.navInflater
+        val navGraph: NavGraph = navInflater.inflate(R.navigation.nav_graph)
+
+        // ✅ startDestination 분기
+        navGraph.setStartDestination(
+            if (hasFamily) R.id.familyHomeFragment
+            else R.id.homeFragment
+        )
+
+        navController.graph = navGraph
+
+        // 바텀 네비게이션 설정
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
         bottomNav.setOnItemSelectedListener { item ->
