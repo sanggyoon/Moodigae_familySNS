@@ -5,41 +5,85 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
-import androidx.navigation.fragment.findNavController
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var navController: NavController
+    private lateinit var navGraph: NavGraph
+    private lateinit var bottomNav: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val hasFamily = intent.getBooleanExtra("hasFamily", false)
-
-        // NavController 및 NavGraph 구성
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController: NavController = navHostFragment.navController
+        navController = navHostFragment.navController
         val navInflater = navController.navInflater
-        val navGraph: NavGraph = navInflater.inflate(R.navigation.nav_graph)
+        navGraph = navInflater.inflate(R.navigation.nav_graph)
 
-        // ✅ startDestination 분기
-        navGraph.setStartDestination(
-            if (hasFamily) R.id.familyHomeFragment
-            else R.id.homeFragment
-        )
+        bottomNav = findViewById(R.id.bottom_navigation)
 
-        navController.graph = navGraph
+        // 🔥 Firestore에서 familyId 여부 판단
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        if (currentUser != null) {
+            val userRef = FirebaseFirestore.getInstance()
+                .collection("users").document(currentUser.uid)
 
-        // 바텀 네비게이션 설정
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+            userRef.get().addOnSuccessListener { document ->
+                val familyIdList = document.get("familyId") as? List<*>
+                val hasFamily = !familyIdList.isNullOrEmpty()
 
+                navGraph.setStartDestination(
+                    if (hasFamily) R.id.familyHomeFragment
+                    else R.id.homeFragment
+                )
+                navController.graph = navGraph  // 그래프 적용은 여기서!
+                setupBottomNav() // 바텀 네비게이션도 여기서 연결
+            }.addOnFailureListener {
+                navGraph.setStartDestination(R.id.homeFragment)
+                navController.graph = navGraph
+                setupBottomNav()
+            }
+        } else {
+            // 로그인 안 돼있을 경우 홈으로
+            navGraph.setStartDestination(R.id.homeFragment)
+            navController.graph = navGraph
+            setupBottomNav()
+        }
+    }
+
+    private fun setupBottomNav() {
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.homeFragment -> {
-                    if (!navController.popBackStack(R.id.homeFragment, false)) {
-                        navController.navigate(R.id.homeFragment)
+                    val currentUser = FirebaseAuth.getInstance().currentUser
+                    if (currentUser != null) {
+                        val userRef = FirebaseFirestore.getInstance()
+                            .collection("users")
+                            .document(currentUser.uid)
+
+                        userRef.get().addOnSuccessListener { document ->
+                            val familyIdList = document.get("familyId") as? List<*>
+                            val destinationId = if (!familyIdList.isNullOrEmpty()) {
+                                R.id.familyHomeFragment
+                            } else {
+                                R.id.homeFragment
+                            }
+
+                            if (!navController.popBackStack(destinationId, false)) {
+                                navController.navigate(destinationId)
+                            }
+                        }
+                    } else {
+                        // 로그인 정보 없으면 기본 홈으로
+                        if (!navController.popBackStack(R.id.homeFragment, false)) {
+                            navController.navigate(R.id.homeFragment)
+                        }
                     }
                     true
                 }
