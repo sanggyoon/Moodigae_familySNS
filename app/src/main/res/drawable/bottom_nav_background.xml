@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- 가장 바깥쪽 그림자 (가장 연함) -->
-    <item android:left="16dp" android:top="16dp" android:right="16dp" android:bottom="16dp">
+    <item android:left="8dp" android:top="8dp" android:right="8dp" android:bottom="8dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#10000000" />
+            <corners android:radius="24dp" />
+        </shape>
+    </item>
+
+    <!-- 중간 그림자 -->
+    <item android:left="4dp" android:top="4dp" android:right="4dp" android:bottom="4dp">
         <shape android:shape="rectangle">
             <solid android:color="#20000000" />
             <corners android:radius="24dp" />
         </shape>
     </item>
 
-    <!-- 중간 그림자 -->
-    <item android:left="8dp" android:top="8dp" android:right="8dp" android:bottom="8dp">
-        <shape android:shape="rectangle">
-            <solid android:color="#40000000" />
-            <corners android:radius="24dp" />
-        </shape>
-    </item>
-
     <!-- 안쪽 그림자 (약간 진함) -->
-    <item android:left="4dp" android:top="4dp" android:right="4dp" android:bottom="4dp">
+    <item android:left="2dp" android:top="2dp" android:right="2dp" android:bottom="2dp">
         <shape android:shape="rectangle">
-            <solid android:color="#60000000" />
+            <solid android:color="#30000000" />
             <corners android:radius="24dp" />
         </shape>
     </item>
