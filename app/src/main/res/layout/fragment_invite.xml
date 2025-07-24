@@ -2,18 +2,62 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- 초대하기 버튼 -->
-    <Button
-        android:id="@+id/btn_invite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="초대하기"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <!-- 설명 텍스트 -->
+    <TextView
+        android:id="@+id/channel_create_id"
+        android:layout_width="380dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="283dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="center_horizontal|top"
+        android:lineSpacingExtra="2sp"
+        android:text="@string/channel_creat_id"
+        android:textAppearance="@style/channel_creat_id"
+        android:translationY="-0.96sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="324dp" />
+
+    <!-- 채널 코드 텍스트 -->
+    <TextView
+        android:id="@+id/text_channel_creat_code"
+        android:layout_width="132dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="400dp"
+        android:gravity="center_horizontal|top"
+        android:text="@string/text_channel_creat_code"
+        android:textAppearance="@style/text_channel_creat_code"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?android:attr/selectableItemBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 실제 채널 코드 (클릭 가능) -->
+    <TextView
+        android:id="@+id/channel_code_display"
+        android:layout_width="132dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="430dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/channel_code_example"
+        android:textAppearance="@style/text_channel_creat_code"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:textColor="#007AFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

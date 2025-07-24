@@ -15,4 +15,9 @@
     <string name="no_family_channels">참가한 가족채널이 없어요.\n 가족 채널을 생성하세요!</string>
     <string name="enter_family_channel">가족 채널 입장하기</string>
     <string name="create_family_channel">가족 채널 만들기</string>
+    
+    <!-- 초대 관련 텍스트 -->
+    <string name="channel_creat_id">가족 채널이 만들어져있어요.\n아이디를 공유하고, 다른 가족들도 초대해볼까요?</string>
+    <string name="text_channel_creat_code">우리 가족 채널 아이디</string>
+    <string name="channel_code_example">ABC123</string>
 </resources>
