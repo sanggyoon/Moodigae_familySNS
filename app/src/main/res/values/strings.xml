@@ -7,4 +7,12 @@
     <string name="channel_name">채널 이름</string>
     <string name="channel_password_setting">채널 비밀번호 설정</string>
     <string name="family_motto_setting">가훈 설정</string>
+    
+    <!-- 로그인 관련 텍스트 -->
+    <string name="google_login">Google 로그인</string>
+    
+    <!-- 홈 화면 관련 텍스트 -->
+    <string name="no_family_channels">참가한 가족채널이 없어요.\n 가족 채널을 생성하세요!</string>
+    <string name="enter_family_channel">가족 채널 입장하기</string>
+    <string name="create_family_channel">가족 채널 만들기</string>
 </resources>

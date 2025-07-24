@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:text="참가한 가족채널이 없어요.\n 가족 채널을 생성하세요!"
+        android:text="@string/no_family_channels"
         android:textSize="16sp"
         android:textColor="@color/text_gray"
         android:gravity="center"
@@ -23,7 +23,7 @@
         android:layout_marginHorizontal="24dp"
         android:minWidth="210dp"
         android:background="@drawable/btn_gradient_blue"
-        android:text="가족 채널 입장하기"
+        android:text="@string/enter_family_channel"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:layout_gravity="center"
@@ -38,7 +38,7 @@
         android:layout_marginHorizontal="24dp"
         android:minWidth="210dp"
         android:background="@drawable/btn_white"
-        android:text="가족 채널 만들기"
+        android:text="@string/create_family_channel"
         android:textColor="@color/button_text_blue"
         android:textSize="14sp"
         android:layout_gravity="center"
