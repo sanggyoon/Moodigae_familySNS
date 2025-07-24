@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_join_channel"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
@@ -31,7 +31,7 @@
         android:backgroundTint="@null"
         app:backgroundTint="@null" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_create_channel"
         android:layout_width="wrap_content"
         android:layout_height="56dp"

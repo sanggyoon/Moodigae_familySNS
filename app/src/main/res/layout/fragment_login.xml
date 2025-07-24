@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="24dp">
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_google_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

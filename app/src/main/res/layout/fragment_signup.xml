@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="24dp">
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/editTextEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/editTextPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"/>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonSignup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -36,4 +36,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="24dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

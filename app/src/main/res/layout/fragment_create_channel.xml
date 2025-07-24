@@ -23,111 +23,155 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="60dp"/>
 
-    <!-- 기존 LinearLayout -->
-    <LinearLayout
-        android:id="@+id/content_layout"
+    <!-- 채널 이름 섹션 -->
+    <TextView
+        android:id="@+id/text_channel_name"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:text="@string/channel_name"
+        android:textAppearance="@style/ChannelTitleStyle"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
         android:layout_marginTop="111dp"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        app:layout_constraintWidth_percent="0.89"
-        app:layout_constraintHeight_percent="0.41"
+        android:gravity="start|center_vertical"
+        android:textSize="16sp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeStepGranularity="1sp"
+        app:layout_constraintWidth_percent="0.83"
+        app:layout_constraintHeight_percent="0.03"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"/>
 
-        <!-- 채널 이름 섹션 -->
-        <TextView
-            android:id="@+id/text_channel_name"
+    <RelativeLayout
+        android:id="@+id/input_channel_name"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToOutline="true"
+        android:background="@drawable/input"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintWidth_percent="0.83"
+        app:layout_constraintHeight_percent="0.06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_channel_name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_channel_input_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/channel_name"
-            android:textAppearance="@style/ChannelTitleStyle"
-            android:layout_marginBottom="16dp"
-            android:layout_marginHorizontal="16dp"/>
+            android:layout_height="match_parent"
+            android:hint="채널 이름 입력"
+            android:inputType="textPersonName"
+            android:background="@android:color/transparent"
+            android:padding="16dp"
+            android:textSize="16sp"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeMaxTextSize="20sp"
+            android:autoSizeStepGranularity="1sp"/>
+    </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/input_channel_name"
+    <!-- 채널 비밀번호 섹션 -->
+    <TextView
+        android:id="@+id/text_channel_password"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/channel_password_setting"
+        android:textAppearance="@style/ChannelTitleStyle"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginTop="32dp"
+        android:gravity="start|center_vertical"
+        android:textSize="16sp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeStepGranularity="1sp"
+        app:layout_constraintWidth_percent="0.83"
+        app:layout_constraintHeight_percent="0.03"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_channel_name"/>
+
+    <RelativeLayout
+        android:id="@+id/input_channel_password"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToOutline="true"
+        android:background="@drawable/input"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintWidth_percent="0.83"
+        app:layout_constraintHeight_percent="0.06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_channel_password">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_channel_input_password"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:clipToOutline="true"
-            android:background="@drawable/input"
-            android:layout_marginBottom="32dp"
-            android:layout_marginHorizontal="16dp">
+            android:layout_height="match_parent"
+            android:hint="채널 비밀번호 입력"
+            android:inputType="textPassword"
+            android:background="@android:color/transparent"
+            android:padding="16dp"
+            android:textSize="16sp"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeMaxTextSize="20sp"
+            android:autoSizeStepGranularity="1sp"/>
+    </RelativeLayout>
 
-            <EditText
-                android:id="@+id/edit_channel_input_title"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="채널 이름 입력"
-                android:inputType="textPersonName"
-                android:background="@android:color/transparent"
-                android:padding="16dp"
-                android:textSize="16sp"/>
-        </RelativeLayout>
+    <!-- 가훈 섹션 -->
+    <TextView
+        android:id="@+id/text_family_motto"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/family_motto_setting"
+        android:textAppearance="@style/ChannelTitleStyle"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginTop="32dp"
+        android:gravity="start|center_vertical"
+        android:textSize="16sp"
+        android:autoSizeTextType="uniform"
+        android:autoSizeMinTextSize="12sp"
+        android:autoSizeMaxTextSize="20sp"
+        android:autoSizeStepGranularity="1sp"
+        app:layout_constraintWidth_percent="0.83"
+        app:layout_constraintHeight_percent="0.03"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/input_channel_password"/>
 
-        <!-- 채널 비밀번호 섹션 -->
-        <TextView
-            android:id="@+id/text_channel_password"
+    <RelativeLayout
+        android:id="@+id/input_family_motto"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToOutline="true"
+        android:background="@drawable/input"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintWidth_percent="0.83"
+        app:layout_constraintHeight_percent="0.06"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_family_motto">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edit_channel_input_motto"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/channel_password_setting"
-            android:textAppearance="@style/ChannelTitleStyle"
-            android:layout_marginBottom="16dp"
-            android:layout_marginHorizontal="16dp"/>
-
-        <RelativeLayout
-            android:id="@+id/input_channel_password"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:clipToOutline="true"
-            android:background="@drawable/input"
-            android:layout_marginBottom="32dp"
-            android:layout_marginHorizontal="16dp">
-
-            <EditText
-                android:id="@+id/edit_channel_input_password"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="채널 비밀번호 입력"
-                android:inputType="textPassword"
-                android:background="@android:color/transparent"
-                android:padding="16dp"
-                android:textSize="16sp"/>
-        </RelativeLayout>
-
-        <!-- 가훈 섹션 -->
-        <TextView
-            android:id="@+id/text_family_motto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/family_motto_setting"
-            android:textAppearance="@style/ChannelTitleStyle"
-            android:layout_marginBottom="16dp"
-            android:layout_marginHorizontal="16dp"/>
-
-        <RelativeLayout
-            android:id="@+id/input_family_motto"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:clipToOutline="true"
-            android:background="@drawable/input"
-            android:layout_marginBottom="32dp"
-            android:layout_marginHorizontal="16dp">
-
-            <EditText
-                android:id="@+id/edit_channel_input_motto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:hint="가훈 입력"
-                android:inputType="text"
-                android:padding="16dp"
-                android:textSize="16sp" />
-        </RelativeLayout>
-    </LinearLayout>
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:hint="가훈 입력"
+            android:inputType="text"
+            android:padding="16dp"
+            android:textSize="16sp"
+            android:autoSizeTextType="uniform"
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeMaxTextSize="20sp"
+            android:autoSizeStepGranularity="1sp" />
+    </RelativeLayout>
 
     <!-- 버튼 영역 -->
     <LinearLayout
@@ -142,20 +186,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <Button
+        <ImageView
             android:id="@+id/btn_back"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="뒤로"
-            android:layout_marginEnd="8dp"/>
+            android:src="@drawable/icon_back_default"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="16dp"
+            android:gravity="center"
+            android:contentDescription="뒤로 가기"/>
 
-        <Button
-            android:id="@+id/btn_next"
+        <View
             android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/btn_next"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="다음"
-            android:layout_marginStart="8dp"/>
+            android:src="@drawable/icon_next_default"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="16dp"
+            android:gravity="center"
+            android:contentDescription="다음"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
