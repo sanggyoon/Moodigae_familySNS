@@ -35,9 +35,11 @@
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
+            style="@style/CustomBottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="72dp"
             android:background="@android:color/transparent"
+            app:labelVisibilityMode="unlabeled"
             app:menu="@menu/bottom_nav_menu" />
 
     </androidx.cardview.widget.CardView>

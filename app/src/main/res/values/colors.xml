@@ -13,4 +13,13 @@
 
     <!-- 전체화면 배경 색상 -->
     <color name="background_color">#F7F7F8</color>
+
+    <!-- 버튼 색상 추가 -->
+    <color name="icon_default">#80ACACAF</color><!-- Gray_3 -->
+    <color name="icon_default_gradation">#D0D0D2</color><!-- Gray_2 -->
+    <color name="icon_active">#3568D6</color>
+    <color name="icon_act_gradation_start">#1644A5</color>
+    <color name="icon_act_gradation_end">#3568D6</color>
+
+
 </resources>

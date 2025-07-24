@@ -33,4 +33,20 @@
         <item name="android:translationY">-0.96sp</item>
         <item name="android:gravity">top</item>
     </style>
+
+    <!-- BottomNavigationView 커스텀 스타일 -->
+    <style name="CustomBottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="itemIconSize">60dp</item>
+        <item name="itemTextAppearanceActive">@style/CustomBottomNavigationTextAppearance</item>
+        <item name="itemTextAppearanceInactive">@style/CustomBottomNavigationTextAppearance</item>
+        <item name="itemRippleColor">@color/icon_active</item>
+        <item name="itemPaddingTop">8dp</item>
+        <item name="itemPaddingBottom">8dp</item>
+    </style>
+
+    <!-- BottomNavigationView 텍스트 스타일 -->
+    <style name="CustomBottomNavigationTextAppearance" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/icon_active</item>
+    </style>
 </resources>
