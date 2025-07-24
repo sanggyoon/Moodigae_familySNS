@@ -14,4 +14,30 @@
     </style>
 
     <style name="Theme.FamilySNS" parent="Base.Theme.FamilySNS" />
+    
+    <!-- 컴포넌트 스타일들 -->
+    <style name="CreateChannelTitleStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="android:textColor">#101010</item>
+        <item name="android:lineSpacingExtra">2sp</item>
+        <item name="android:translationY">-0.96sp</item>
+        <item name="android:gravity">center_horizontal|top</item>
+    </style>
+    
+    <style name="ChannelTitleStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="android:textColor">#262626</item>
+        <item name="android:lineSpacingExtra">2sp</item>
+        <item name="android:translationY">-0.96sp</item>
+        <item name="android:gravity">top</item>
+    </style>
+    
+    <style name="ChannelInputStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#262626</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:padding">16dp</item>
+    </style>
 </resources>
