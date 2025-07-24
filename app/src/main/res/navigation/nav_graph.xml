@@ -21,8 +21,20 @@
         android:label="fragment_family_home"
         tools:layout="@layout/fragment_family_home">
         <action
-            android:id="@+id/action_familyHomeFragment_to_postCreateFragment"
-            app:destination="@id/postCreateFragment" />
+            android:id="@+id/action_familyHomeFragment_to_postWriteFragment"
+            app:destination="@id/postWriteFragment">
+
+            <argument
+                android:name="familyId"
+                app:argType="string"
+                app:nullable="false" />
+
+            <argument
+                android:name="imageUriList"
+                app:argType="string[]"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        </action>
     </fragment>
 
     <fragment
@@ -53,23 +65,20 @@
         tools:layout="@layout/fragment_invite" />
 
     <fragment
-        android:id="@+id/postCreateFragment"
-        android:name="com.example.familysns.ui.PostCreateFragment"
-        android:label="fragment_post_create"
-        tools:layout="@layout/fragment_post_create">
-        <action
-            android:id="@+id/action_postCreateFragment_to_postWriteFragment"
-            app:destination="@id/postWriteFragment" />
-    </fragment>
-
-    <fragment
         android:id="@+id/postWriteFragment"
         android:name="com.example.familysns.ui.PostWriteFragment"
         android:label="fragment_post_write"
         tools:layout="@layout/fragment_post_write">
 
         <argument
-            android:name="imageUri"
-            app:argType="string" />
+            android:name="familyId"
+            app:argType="string"
+            app:nullable="false" />
+
+        <argument
+            android:name="imageUriList"
+            app:argType="string[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 </navigation>
