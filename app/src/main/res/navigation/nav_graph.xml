@@ -70,6 +70,10 @@
         android:label="fragment_post_write"
         tools:layout="@layout/fragment_post_write">
 
+        <action
+            android:id="@+id/action_postWriteFragment_to_familyHomeFragment"
+            app:destination="@id/familyHomeFragment" />
+
         <argument
             android:name="familyId"
             app:argType="string"

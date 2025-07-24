@@ -31,29 +31,30 @@ class MainActivity : AppCompatActivity() {
         // 🔥 Firestore에서 familyId 여부 판단
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser != null) {
-            val userRef = FirebaseFirestore.getInstance()
-                .collection("users").document(currentUser.uid)
+            val userId = currentUser.uid
+            val userRef = FirebaseFirestore.getInstance().collection("users").document(userId)
 
             userRef.get().addOnSuccessListener { document ->
                 val familyIdList = document.get("familyId") as? List<*>
                 val hasFamily = !familyIdList.isNullOrEmpty()
+                val familyId = familyIdList?.firstOrNull()?.toString()
+
+                // ✅ SharedPreferences 저장
+                com.example.familysns.util.PrefsHelper.saveUserId(this, userId)
+                if (familyId != null) {
+                    com.example.familysns.util.PrefsHelper.saveFamilyId(this, familyId)
+                }
 
                 navGraph.setStartDestination(
-                    if (hasFamily) R.id.familyHomeFragment
-                    else R.id.homeFragment
+                    if (hasFamily) R.id.familyHomeFragment else R.id.homeFragment
                 )
-                navController.graph = navGraph  // 그래프 적용은 여기서!
-                setupBottomNav() // 바텀 네비게이션도 여기서 연결
+                navController.graph = navGraph
+                setupBottomNav()
             }.addOnFailureListener {
                 navGraph.setStartDestination(R.id.homeFragment)
                 navController.graph = navGraph
                 setupBottomNav()
             }
-        } else {
-            // 로그인 안 돼있을 경우 홈으로
-            navGraph.setStartDestination(R.id.homeFragment)
-            navController.graph = navGraph
-            setupBottomNav()
         }
     }
 

@@ -13,6 +13,8 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.storage.FirebaseStorage
 import com.google.android.flexbox.FlexboxLayout
 import com.google.android.material.button.MaterialButton
+import androidx.navigation.fragment.findNavController
+import com.example.familysns.R
 
 class PostWriteFragment : Fragment() {
     private lateinit var binding: FragmentPostWriteBinding
@@ -79,13 +81,21 @@ class PostWriteFragment : Fragment() {
                         val btn = MaterialButton(requireContext()).apply {
                             text = name
                             isCheckable = true
+                            isChecked = selectedMembers.contains(id)
+                            setBackgroundColor(if (isChecked) 0xFFE0F7FA.toInt() else 0xFFFFFFFF.toInt())
+                            setTextColor(if (isChecked) 0xFF00796B.toInt() else 0xFF000000.toInt())
+
                             setOnClickListener {
                                 if (selectedMembers.contains(id)) {
                                     selectedMembers.remove(id)
                                     isChecked = false
+                                    setBackgroundColor(0xFFFFFFFF.toInt()) // 흰 배경
+                                    setTextColor(0xFF000000.toInt())      // 검정 텍스트
                                 } else {
                                     selectedMembers.add(id)
                                     isChecked = true
+                                    setBackgroundColor(0xFFE0F7FA.toInt()) // 연한 청록 배경
+                                    setTextColor(0xFF00796B.toInt())       // 짙은 청록 텍스트
                                 }
                             }
                         }
@@ -102,12 +112,15 @@ class PostWriteFragment : Fragment() {
             val btn = MaterialButton(requireContext()).apply {
                 text = tag
                 isCheckable = true
+                setBackgroundColor(0xFFFFFFFF.toInt())
+                setTextColor(0xFF000000.toInt())
+
                 setOnClickListener {
                     selectedTag = if (selectedTag == tag) {
                         isChecked = false
+                        updateTagButtons(tagContainer, "")
                         null
                     } else {
-                        selectedTag = tag
                         updateTagButtons(tagContainer, tag)
                         tag
                     }
@@ -119,8 +132,16 @@ class PostWriteFragment : Fragment() {
 
     private fun updateTagButtons(container: FlexboxLayout, selected: String) {
         for (i in 0 until container.childCount) {
-            val btn = container.getChildAt(i) as? MaterialButton
-            btn?.isChecked = btn?.text == selected
+            val btn = container.getChildAt(i) as? MaterialButton ?: continue
+            if (btn.text == selected) {
+                btn.isChecked = true
+                btn.setBackgroundColor(0xFFFFF9C4.toInt()) // 연한 노랑
+                btn.setTextColor(0xFFF57F17.toInt())       // 진한 주황
+            } else {
+                btn.isChecked = false
+                btn.setBackgroundColor(0xFFFFFFFF.toInt()) // 기본 흰색
+                btn.setTextColor(0xFF000000.toInt())       // 기본 검정
+            }
         }
     }
 
@@ -132,6 +153,10 @@ class PostWriteFragment : Fragment() {
                 Toast.makeText(requireContext(), "이미지를 선택해주세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
+            // ✅ 로딩 시작
+            binding.btnNext.isEnabled = false
+            binding.progressBar.visibility = View.VISIBLE
 
             uploadImagesToStorage(imageUris)
         }
@@ -185,9 +210,19 @@ class PostWriteFragment : Fragment() {
             .add(post)
             .addOnSuccessListener {
                 Toast.makeText(context, "게시물이 업로드되었습니다.", Toast.LENGTH_SHORT).show()
+
+                // ✅ 로딩 종료
+                binding.progressBar.visibility = View.GONE
+                binding.btnNext.isEnabled = true
+
+                findNavController().navigate(R.id.action_postWriteFragment_to_familyHomeFragment)
             }
             .addOnFailureListener {
                 Toast.makeText(context, "업로드 실패: ${it.message}", Toast.LENGTH_SHORT).show()
+
+                // ✅ 로딩 종료
+                binding.progressBar.visibility = View.GONE
+                binding.btnNext.isEnabled = true
             }
     }
 }
