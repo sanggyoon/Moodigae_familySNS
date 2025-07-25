@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
@@ -13,7 +14,20 @@
         <action
             android:id="@+id/action_homeFragment_to_createChannelFragment"
             app:destination="@id/createChannelFragment" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_enterChannelFragment"
+            app:destination="@id/enterChannelFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/enterChannelFragment"
+        android:name="com.example.familysns.ui.EnterChannelFragment"
+        android:label="Enter Channel" />
+
+        <action
+            android:id="@+id/action_enterChannelFragment_to_familyHomeFragment"
+            app:destination="@id/familyHomeFragment" />
 
     <fragment
         android:id="@+id/familyHomeFragment"
@@ -61,8 +75,12 @@
     <fragment
         android:id="@+id/inviteFragment"
         android:name="com.example.familysns.ui.InviteFragment"
-        android:label="fragment_invite"
-        tools:layout="@layout/fragment_invite" />
+        android:label="초대하기"
+        tools:layout="@layout/fragment_invite">
+        <action
+            android:id="@+id/action_inviteFragment_to_familyHomeFragment"
+            app:destination="@id/familyHomeFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/postWriteFragment"

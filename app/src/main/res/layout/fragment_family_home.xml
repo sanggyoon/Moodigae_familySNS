@@ -12,13 +12,19 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- 가족 채널 이름 -->
+        <TextView
+            android:id="@+id/text_family_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"/>
+
         <!-- 가훈 -->
         <TextView
             android:id="@+id/text_motto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
-            android:text="하는 일마다 잘 되리라"
             android:textStyle="bold"
             android:textSize="16sp"
             android:gravity="center"
@@ -47,11 +53,11 @@
                 android:orientation="horizontal" />
         </HorizontalScrollView>
 
-        <!-- 오늘의 가족 소식 -->
+        <!-- 최근 가족 소식 -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="오늘의 가족 소식"
+            android:text="최근 가족 소식"
             android:textStyle="bold"
             android:textSize="18sp"
             android:layout_marginBottom="12dp" />
