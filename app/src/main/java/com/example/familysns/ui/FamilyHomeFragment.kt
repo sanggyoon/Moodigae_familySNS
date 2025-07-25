@@ -2,8 +2,8 @@ package com.example.familysns.ui
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
@@ -108,13 +108,66 @@ class FamilyHomeFragment : Fragment() {
                 todayPostsContainer.removeAllViews()
                 for (document in result) {
                     val post = document.toObject(Post::class.java)
+
                     val card = layoutInflater.inflate(R.layout.item_post_card, todayPostsContainer, false)
-                    val imageView = card.findViewById<ImageView>(R.id.iv_thumbnail)
-                    val textView = card.findViewById<TextView>(R.id.tv_message)
-                    textView.text = post.message
-                    Glide.with(this).load(post.imageUrls.firstOrNull()).into(imageView)
+                    val ivThumbnail = card.findViewById<ImageView>(R.id.iv_thumbnail)
+                    val tvMessage = card.findViewById<TextView>(R.id.tv_message)
+                    val ivProfile = card.findViewById<ImageView>(R.id.iv_profile)
+                    val tvUsername = card.findViewById<TextView>(R.id.tv_username)
+                    val tvTime = card.findViewById<TextView>(R.id.tv_time)
+
+                    // 메시지
+                    tvMessage.text = post.message
+
+                    // 썸네일 로딩
+                    val thumbnailUrl = post.imageUrls.firstOrNull()
+                    if (thumbnailUrl.isNullOrEmpty()) {
+                        Log.w("PostDebug", "이미지 없음 - message: ${post.message}")
+                        ivThumbnail.setImageResource(R.drawable.thumbnail_placeholder)
+                    } else {
+                        Log.d("PostDebug", "썸네일 URL: $thumbnailUrl")
+                        Glide.with(this)
+                            .load(thumbnailUrl)
+                            .placeholder(R.drawable.thumbnail_placeholder)
+                            .error(R.drawable.thumbnail_error)
+                            .centerCrop()
+                            .into(ivThumbnail)
+                    }
+
+                    // 작성자 정보 가져오기
+                    db.collection("users").document(post.authorId).get()
+                        .addOnSuccessListener { userDoc ->
+                            val name = userDoc.getString("name") ?: "알 수 없음"
+                            val photoUrl = userDoc.getString("photoUrl")
+
+                            tvUsername.text = name
+
+                            Glide.with(this)
+                                .load(photoUrl)
+                                .placeholder(R.drawable.ic_profile_placeholder)
+                                .circleCrop()
+                                .into(ivProfile)
+                        }
+
+                    // 작성 시간
+                    val timestamp = post.createdAt?.toDate()?.time ?: 0L
+                    tvTime.text = convertTimestampToTimeAgo(timestamp)
+
                     todayPostsContainer.addView(card)
                 }
             }
+    }
+
+    private fun convertTimestampToTimeAgo(timestamp: Long): String {
+        val now = System.currentTimeMillis()
+        val diff = now - timestamp
+
+        val minutes = diff / 1000 / 60
+        return when {
+            minutes < 1 -> "방금 전"
+            minutes < 60 -> "${minutes}분 전"
+            minutes < 60 * 24 -> "${minutes / 60}시간 전"
+            else -> "${minutes / 60 / 24}일 전"
+        }
     }
 }
