@@ -108,13 +108,24 @@ class FamilyHomeFragment : Fragment() {
                 todayPostsContainer.removeAllViews()
                 for (document in result) {
                     val post = document.toObject(Post::class.java)
-
+                    val postId = document.id
                     val card = layoutInflater.inflate(R.layout.item_post_card, todayPostsContainer, false)
                     val ivThumbnail = card.findViewById<ImageView>(R.id.iv_thumbnail)
                     val tvMessage = card.findViewById<TextView>(R.id.tv_message)
                     val ivProfile = card.findViewById<ImageView>(R.id.iv_profile)
                     val tvUsername = card.findViewById<TextView>(R.id.tv_username)
                     val tvTime = card.findViewById<TextView>(R.id.tv_time)
+
+
+                    card.setOnClickListener {
+                        val familyId = PrefsHelper.getFamilyId(requireContext()) ?: return@setOnClickListener
+                        val action = FamilyHomeFragmentDirections
+                            .actionFamilyHomeFragmentToPostDetailFragment(
+                                postId = postId,
+                                familyId = familyId
+                            )
+                        findNavController().navigate(action)
+                    }
 
                     // 메시지
                     tvMessage.text = post.message

@@ -49,6 +49,22 @@
                 app:nullable="true"
                 android:defaultValue="@null" />
         </action>
+
+        <action
+            android:id="@+id/action_familyHomeFragment_to_postDetailFragment"
+            app:destination="@id/postDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/postDetailFragment"
+        android:name="com.example.familysns.ui.PostDetailFragment"
+        android:label="Post Detail">
+        <argument
+            android:name="postId"
+            app:argType="string" />
+        <argument
+            android:name="familyId"
+            app:argType="string" />
     </fragment>
 
     <fragment
