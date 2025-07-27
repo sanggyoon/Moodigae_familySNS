@@ -42,18 +42,11 @@
                     android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="3분 전"
+                    android:text="시간"
                     android:textColor="#888888"
                     android:textSize="12sp" />
             </LinearLayout>
 
-<!--            <ImageButton-->
-<!--                android:id="@+id/btn_close"-->
-<!--                android:layout_width="24dp"-->
-<!--                android:layout_height="24dp"-->
-<!--                android:background="@android:color/transparent"-->
-<!--                android:src="@android:drawable/ic_menu_close_clear_cancel"-->
-<!--                android:layout_alignParentEnd="true" />-->
         </RelativeLayout>
 
         <!-- 이미지 슬라이더 -->
@@ -92,13 +85,163 @@
             android:layout_marginBottom="16dp" />
 
         <!-- 이모지 반응 -->
+    <LinearLayout
+        android:id="@+id/reaction_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"
+        android:weightSum="6">
+        <!-- ❤️ 하트 반응 -->
         <LinearLayout
-            android:id="@+id/reaction_container"
-            android:layout_width="match_parent"
+            android:id="@+id/btn_heart"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginEnd="12dp">
+
+            <ImageView
+                android:id="@+id/icon_heart"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_emoji_heart"
+                android:contentDescription="하트" />
+
+            <TextView
+                android:id="@+id/count_heart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="#555555" />
+        </LinearLayout>
+
+        <!-- 👍 따봉 반응 -->
+        <LinearLayout
+            android:id="@+id/btn_thumb_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginEnd="12dp">
+
+            <ImageView
+                android:id="@+id/icon_thumb_up"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_emoji_thumb_up"
+                android:contentDescription="따봉" />
+
+            <TextView
+                android:id="@+id/count_thumb_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="#555555" />
+        </LinearLayout>
+
+        <!-- 😊 스마일 -->
+        <LinearLayout
+            android:id="@+id/btn_smile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginEnd="12dp">
+
+            <ImageView
+                android:id="@+id/icon_smile"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_emoji_smile"
+                android:contentDescription="스마일" />
+
+            <TextView
+                android:id="@+id/count_smile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="#555555" />
+        </LinearLayout>
+
+        <!-- 😢 슬픔 -->
+        <LinearLayout
+            android:id="@+id/btn_sad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginEnd="12dp">
+
+            <ImageView
+                android:id="@+id/icon_sad"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_emoji_sad"
+                android:contentDescription="슬픔" />
+
+            <TextView
+                android:id="@+id/count_sad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="#555555" />
+        </LinearLayout>
+
+        <!-- 😡 화남 -->
+        <LinearLayout
+            android:id="@+id/btn_upset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginEnd="12dp">
+
+            <ImageView
+                android:id="@+id/icon_upset"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_emoji_upset"
+                android:contentDescription="화남" />
+
+            <TextView
+                android:id="@+id/count_upset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="#555555" />
+        </LinearLayout>
+
+        <!-- 😲 놀람 -->
+        <LinearLayout
+            android:id="@+id/btn_surprise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/icon_surprise"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_emoji_surprise"
+                android:contentDescription="놀람" />
+
+            <TextView
+                android:id="@+id/count_surprise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="#555555" />
+        </LinearLayout>
+    </LinearLayout>
 
         <!-- 반응 및 댓글 안내 -->
         <TextView
