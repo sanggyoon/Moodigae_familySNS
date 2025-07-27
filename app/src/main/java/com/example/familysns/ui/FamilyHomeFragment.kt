@@ -16,6 +16,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import androidx.activity.result.contract.ActivityResultContracts
+import com.google.firebase.Timestamp
+import java.util.*
 
 class FamilyHomeFragment : Fragment() {
 
@@ -23,6 +25,7 @@ class FamilyHomeFragment : Fragment() {
     private val db = FirebaseFirestore.getInstance()
 
     private lateinit var todayPostsContainer: LinearLayout
+    private lateinit var weeklyPhotosContainer: LinearLayout
     private lateinit var textFamilyName: TextView
     private lateinit var textMotto: TextView
 
@@ -64,6 +67,7 @@ class FamilyHomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_family_home, container, false)
 
         todayPostsContainer = view.findViewById(R.id.today_posts_container)
+        weeklyPhotosContainer = view.findViewById(R.id.weekly_photos_container)
         textFamilyName = view.findViewById(R.id.text_family_name)
         textMotto = view.findViewById(R.id.text_motto)
 
@@ -77,6 +81,8 @@ class FamilyHomeFragment : Fragment() {
 
         loadFamilyInfo()
         loadTodayPosts()
+        loadWeeklyPosts()
+
         return view
     }
 
@@ -116,9 +122,7 @@ class FamilyHomeFragment : Fragment() {
                     val tvUsername = card.findViewById<TextView>(R.id.tv_username)
                     val tvTime = card.findViewById<TextView>(R.id.tv_time)
 
-
                     card.setOnClickListener {
-                        val familyId = PrefsHelper.getFamilyId(requireContext()) ?: return@setOnClickListener
                         val action = FamilyHomeFragmentDirections
                             .actionFamilyHomeFragmentToPostDetailFragment(
                                 postId = postId,
@@ -127,16 +131,11 @@ class FamilyHomeFragment : Fragment() {
                         findNavController().navigate(action)
                     }
 
-                    // 메시지
                     tvMessage.text = post.message
-
-                    // 썸네일 로딩
                     val thumbnailUrl = post.imageUrls.firstOrNull()
                     if (thumbnailUrl.isNullOrEmpty()) {
-                        Log.w("PostDebug", "이미지 없음 - message: ${post.message}")
                         ivThumbnail.setImageResource(R.drawable.thumbnail_placeholder)
                     } else {
-                        Log.d("PostDebug", "썸네일 URL: $thumbnailUrl")
                         Glide.with(this)
                             .load(thumbnailUrl)
                             .placeholder(R.drawable.thumbnail_placeholder)
@@ -145,14 +144,12 @@ class FamilyHomeFragment : Fragment() {
                             .into(ivThumbnail)
                     }
 
-                    // 작성자 정보 가져오기
                     db.collection("users").document(post.authorId).get()
                         .addOnSuccessListener { userDoc ->
                             val name = userDoc.getString("name") ?: "알 수 없음"
                             val photoUrl = userDoc.getString("photoUrl")
 
                             tvUsername.text = name
-
                             Glide.with(this)
                                 .load(photoUrl)
                                 .placeholder(R.drawable.ic_profile_placeholder)
@@ -160,7 +157,6 @@ class FamilyHomeFragment : Fragment() {
                                 .into(ivProfile)
                         }
 
-                    // 작성 시간
                     val timestamp = post.createdAt?.toDate()?.time ?: 0L
                     tvTime.text = convertTimestampToTimeAgo(timestamp)
 
@@ -169,10 +165,87 @@ class FamilyHomeFragment : Fragment() {
             }
     }
 
+    private fun loadWeeklyPosts() {
+        val familyId = PrefsHelper.getFamilyId(requireContext()) ?: return
+        val days = getPast7Dates()
+        weeklyPhotosContainer.removeAllViews()
+
+        val dayImageMap = mutableListOf<Pair<Calendar, String?>>()
+        var completedCount = 0
+
+        for (day in days) {
+            val start = day.clone() as Calendar
+            start.set(Calendar.HOUR_OF_DAY, 0)
+            start.set(Calendar.MINUTE, 0)
+            start.set(Calendar.SECOND, 0)
+
+            val end = day.clone() as Calendar
+            end.set(Calendar.HOUR_OF_DAY, 23)
+            end.set(Calendar.MINUTE, 59)
+            end.set(Calendar.SECOND, 59)
+
+            db.collection("families").document(familyId)
+                .collection("posts")
+                .whereGreaterThanOrEqualTo("createdAt", Timestamp(start.time))
+                .whereLessThanOrEqualTo("createdAt", Timestamp(end.time))
+                .orderBy("createdAt", Query.Direction.DESCENDING)
+                .limit(1)
+                .get()
+                .addOnSuccessListener { snapshot ->
+                    val post = snapshot.documents.firstOrNull()
+                    val imageUrls = post?.get("imageUrls") as? List<*> ?: emptyList<String>()
+                    val imageUrl = imageUrls.firstOrNull() as? String
+
+                    dayImageMap.add(day to imageUrl)
+                    completedCount++
+
+                    if (completedCount == days.size) {
+                        val sortedList = dayImageMap.sortedByDescending { it.first.timeInMillis }
+                        for ((d, img) in sortedList) {
+                            addWeeklyPhotoView(d, img)
+                        }
+                    }
+                }
+        }
+    }
+
+    private fun addWeeklyPhotoView(day: Calendar, imageUrl: String?) {
+        val itemView = layoutInflater.inflate(R.layout.item_weekly_photo, weeklyPhotosContainer, false)
+        val iv = itemView.findViewById<ImageView>(R.id.weekly_image)
+        val tv = itemView.findViewById<TextView>(R.id.weekly_label)
+
+        val date = day.get(Calendar.DATE)
+        val dayOfWeek = day.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.KOREAN) ?: "?"
+
+        // 항상 날짜 + 요일 표시
+        tv.text = "$date\n$dayOfWeek"
+
+        if (imageUrl != null) {
+            Glide.with(this)
+                .load(imageUrl)
+                .centerCrop()
+                .into(iv)
+        } else {
+            iv.setImageResource(R.drawable.bg_round_gray)
+        }
+
+        weeklyPhotosContainer.addView(itemView)
+    }
+
+    private fun getPast7Dates(): List<Calendar> {
+        val list = mutableListOf<Calendar>()
+        val cal = Calendar.getInstance()
+        for (i in 0..6) {
+            val temp = cal.clone() as Calendar
+            temp.add(Calendar.DATE, -i)
+            list.add(temp)
+        }
+        return list
+    }
+
     private fun convertTimestampToTimeAgo(timestamp: Long): String {
         val now = System.currentTimeMillis()
         val diff = now - timestamp
-
         val minutes = diff / 1000 / 60
         return when {
             minutes < 1 -> "방금 전"

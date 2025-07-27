@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
@@ -11,9 +14,12 @@ import com.bumptech.glide.Glide
 import com.example.familysns.R
 import com.example.familysns.adapter.ImageSliderAdapter
 import com.example.familysns.util.PrefsHelper
+import com.google.firebase.Timestamp
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import de.hdodenhof.circleimageview.CircleImageView
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
+import de.hdodenhof.circleimageview.CircleImageView
 
 class PostDetailFragment : Fragment() {
 
@@ -22,6 +28,11 @@ class PostDetailFragment : Fragment() {
     private lateinit var textMessage: TextView
     private lateinit var ivProfile: CircleImageView
     private lateinit var textTime: TextView
+
+    // 댓글
+    private lateinit var commentContainer: LinearLayout
+    private lateinit var editComment: EditText
+    private lateinit var btnSendComment: ImageButton
 
     // 이모지 카운트 텍스트
     private lateinit var heartCount: TextView
@@ -49,12 +60,15 @@ class PostDetailFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_post_detail, container, false)
 
-        // XML 뷰 연결
         imageSlider = view.findViewById(R.id.image_slider)
         textUsername = view.findViewById(R.id.tv_username)
         textMessage = view.findViewById(R.id.tv_message)
         ivProfile = view.findViewById(R.id.iv_profile)
         textTime = view.findViewById(R.id.tv_time)
+
+        commentContainer = view.findViewById(R.id.comment_container)
+        editComment = view.findViewById(R.id.edit_comment)
+        btnSendComment = view.findViewById(R.id.btn_send_comment)
 
         heartCount = view.findViewById(R.id.count_heart)
         thumbUpCount = view.findViewById(R.id.count_thumb_up)
@@ -70,22 +84,16 @@ class PostDetailFragment : Fragment() {
         btnUpset = view.findViewById(R.id.btn_upset)
         btnSurprise = view.findViewById(R.id.btn_surprise)
 
-        // Safe Args
         val args = PostDetailFragmentArgs.fromBundle(requireArguments())
         postId = args.postId
         familyId = args.familyId
-
         userId = PrefsHelper.getUserId(requireContext()) ?: ""
 
         val db = FirebaseFirestore.getInstance()
 
-        // 게시글 정보 불러오기
-        db.collection("families")
-            .document(familyId)
-            .collection("posts")
-            .document(postId)
-            .get()
-            .addOnSuccessListener { doc ->
+        db.collection("families").document(familyId)
+            .collection("posts").document(postId)
+            .get().addOnSuccessListener { doc ->
                 val message = doc.getString("message") ?: ""
                 val authorId = doc.getString("authorId") ?: ""
                 val createdAt = doc.getTimestamp("createdAt")?.toDate()
@@ -99,27 +107,20 @@ class PostDetailFragment : Fragment() {
                     imageSlider.adapter = adapter
                 }
 
-                // 작성자 정보
                 db.collection("users").document(authorId)
-                    .get()
-                    .addOnSuccessListener { userDoc ->
+                    .get().addOnSuccessListener { userDoc ->
                         val name = userDoc.getString("name") ?: "작성자"
                         val profileUrl = userDoc.getString("photoUrl")
-
                         textUsername.text = name
-
-                        Glide.with(this)
-                            .load(profileUrl)
+                        Glide.with(this).load(profileUrl)
                             .placeholder(R.drawable.ic_profile_placeholder)
-                            .circleCrop()
-                            .into(ivProfile)
+                            .circleCrop().into(ivProfile)
                     }
             }
 
-        // 리액션 로딩
         loadReactions()
+        loadComments()
 
-        // 클릭 리스너 등록
         btnHeart.setOnClickListener { toggleReaction("heart") }
         btnThumbUp.setOnClickListener { toggleReaction("thumbUp") }
         btnSmile.setOnClickListener { toggleReaction("smile") }
@@ -127,17 +128,19 @@ class PostDetailFragment : Fragment() {
         btnUpset.setOnClickListener { toggleReaction("upset") }
         btnSurprise.setOnClickListener { toggleReaction("surprise") }
 
+        btnSendComment.setOnClickListener {
+            val comment = editComment.text.toString().trim()
+            if (comment.isNotEmpty()) sendComment(comment)
+        }
+
         return view
     }
 
     private fun toggleReaction(reactionType: String) {
         val docRef = FirebaseFirestore.getInstance()
-            .collection("families")
-            .document(familyId)
-            .collection("posts")
-            .document(postId)
-            .collection("reaction")
-            .document("reactionId")
+            .collection("families").document(familyId)
+            .collection("posts").document(postId)
+            .collection("reaction").document("reactionId")
 
         val countTextView = when (reactionType) {
             "heart" -> heartCount
@@ -149,7 +152,6 @@ class PostDetailFragment : Fragment() {
             else -> return
         }
 
-        // 먼저 UI에서 숫자 변경
         val current = countTextView.text.toString().toInt()
         val userId = this.userId
 
@@ -157,12 +159,9 @@ class PostDetailFragment : Fragment() {
             val currentList = snapshot.get(reactionType) as? List<String> ?: emptyList()
             val isLiked = currentList.contains(userId)
             val updatedList = if (isLiked) currentList - userId else currentList + userId
-
-            // UI 즉시 반영
             val newCount = if (isLiked) currentList.size - 1 else currentList.size + 1
             countTextView.text = newCount.toString()
 
-            // 문서가 없을 경우 대비해 set + merge로 작성
             docRef.set(mapOf(reactionType to updatedList), SetOptions.merge())
                 .addOnFailureListener {
                     countTextView.text = currentList.size.toString()
@@ -172,12 +171,9 @@ class PostDetailFragment : Fragment() {
 
     private fun loadReactions() {
         val docRef = FirebaseFirestore.getInstance()
-            .collection("families")
-            .document(familyId)
-            .collection("posts")
-            .document(postId)
-            .collection("reaction")
-            .document("reactionId")
+            .collection("families").document(familyId)
+            .collection("posts").document(postId)
+            .collection("reaction").document("reactionId")
 
         docRef.get().addOnSuccessListener { doc ->
             heartCount.text = (doc["heart"] as? List<*>)?.size?.toString() ?: "0"
@@ -187,6 +183,55 @@ class PostDetailFragment : Fragment() {
             upsetCount.text = (doc["upset"] as? List<*>)?.size?.toString() ?: "0"
             surpriseCount.text = (doc["surprise"] as? List<*>)?.size?.toString() ?: "0"
         }
+    }
+
+    private fun sendComment(commentText: String) {
+        val db = FirebaseFirestore.getInstance()
+        val commentRef = db.collection("families").document(familyId)
+            .collection("posts").document(postId)
+            .collection("comment").document()
+
+        val commentData = mapOf(
+            "authorId" to userId,
+            "comment" to commentText,
+            "createdAt" to FieldValue.serverTimestamp()
+        )
+
+        commentRef.set(commentData).addOnSuccessListener {
+            editComment.setText("")
+            loadComments()
+        }
+    }
+
+    private fun loadComments() {
+        val db = FirebaseFirestore.getInstance()
+        val commentRef = db.collection("families").document(familyId)
+            .collection("posts").document(postId)
+            .collection("comment")
+
+        commentRef.orderBy("createdAt", Query.Direction.DESCENDING).get()
+            .addOnSuccessListener { snapshot ->
+                commentContainer.removeAllViews()
+                for (doc in snapshot.documents) {
+                    val commentText = doc.getString("comment") ?: ""
+                    val authorId = doc.getString("authorId") ?: ""
+                    db.collection("users").document(authorId).get()
+                        .addOnSuccessListener { userDoc ->
+                            val name = userDoc.getString("name") ?: "익명"
+                            val photoUrl = userDoc.getString("photoUrl")
+                            val itemView = layoutInflater.inflate(R.layout.item_comment, null)
+                            val ivProfile = itemView.findViewById<CircleImageView>(R.id.iv_comment_profile)
+                            val tvName = itemView.findViewById<TextView>(R.id.tv_comment_name)
+                            val tvComment = itemView.findViewById<TextView>(R.id.tv_comment_text)
+                            tvName.text = name
+                            tvComment.text = commentText
+                            Glide.with(this).load(photoUrl)
+                                .placeholder(R.drawable.ic_profile_placeholder)
+                                .circleCrop().into(ivProfile)
+                            commentContainer.addView(itemView)
+                        }
+                }
+            }
     }
 
     private fun convertTimestampToTimeAgo(timestamp: Long): String {
