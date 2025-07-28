@@ -1,7 +1,11 @@
 package com.example.familysns.ui
 
+import android.app.Activity
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
@@ -15,8 +19,10 @@ import com.google.android.flexbox.FlexboxLayout
 import com.google.android.material.button.MaterialButton
 import androidx.navigation.fragment.findNavController
 import com.example.familysns.R
+import java.util.*
 
 class PostWriteFragment : Fragment() {
+
     private lateinit var binding: FragmentPostWriteBinding
     private val args: PostWriteFragmentArgs by navArgs()
 
@@ -27,6 +33,8 @@ class PostWriteFragment : Fragment() {
     private val selectedMembers = mutableSetOf<String>()
     private var selectedTag: String? = null
     private val tagOptions = listOf("여행", "생일", "외식")
+
+    private val SPEECH_REQUEST_CODE = 1002
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -42,6 +50,35 @@ class PostWriteFragment : Fragment() {
         loadFamilyMembers()
         setupAlbumTags()
         setupNextButton()
+
+        binding.btnMic.setOnClickListener {
+            startSpeechToText()
+        }
+    }
+
+    private fun startSpeechToText() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.KOREAN.toString())
+        }
+        try {
+            startActivityForResult(intent, SPEECH_REQUEST_CODE)
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(requireContext(), "음성 인식을 지원하지 않는 기기입니다", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == SPEECH_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            val results = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+            val spokenText = results?.get(0)
+            if (!spokenText.isNullOrEmpty()) {
+                val existingText = binding.editText.text.toString()
+                binding.editText.setText("$existingText $spokenText")
+                binding.editText.setSelection(binding.editText.text.length)
+            }
+        }
     }
 
     private fun getFamilyId(callback: (String?) -> Unit) {
@@ -84,18 +121,17 @@ class PostWriteFragment : Fragment() {
                             isChecked = selectedMembers.contains(id)
                             setBackgroundColor(if (isChecked) 0xFFE0F7FA.toInt() else 0xFFFFFFFF.toInt())
                             setTextColor(if (isChecked) 0xFF00796B.toInt() else 0xFF000000.toInt())
-
                             setOnClickListener {
                                 if (selectedMembers.contains(id)) {
                                     selectedMembers.remove(id)
                                     isChecked = false
-                                    setBackgroundColor(0xFFFFFFFF.toInt()) // 흰 배경
-                                    setTextColor(0xFF000000.toInt())      // 검정 텍스트
+                                    setBackgroundColor(0xFFFFFFFF.toInt())
+                                    setTextColor(0xFF000000.toInt())
                                 } else {
                                     selectedMembers.add(id)
                                     isChecked = true
-                                    setBackgroundColor(0xFFE0F7FA.toInt()) // 연한 청록 배경
-                                    setTextColor(0xFF00796B.toInt())       // 짙은 청록 텍스트
+                                    setBackgroundColor(0xFFE0F7FA.toInt())
+                                    setTextColor(0xFF00796B.toInt())
                                 }
                             }
                         }
@@ -135,12 +171,12 @@ class PostWriteFragment : Fragment() {
             val btn = container.getChildAt(i) as? MaterialButton ?: continue
             if (btn.text == selected) {
                 btn.isChecked = true
-                btn.setBackgroundColor(0xFFFFF9C4.toInt()) // 연한 노랑
-                btn.setTextColor(0xFFF57F17.toInt())       // 진한 주황
+                btn.setBackgroundColor(0xFFFFF9C4.toInt())
+                btn.setTextColor(0xFFF57F17.toInt())
             } else {
                 btn.isChecked = false
-                btn.setBackgroundColor(0xFFFFFFFF.toInt()) // 기본 흰색
-                btn.setTextColor(0xFF000000.toInt())       // 기본 검정
+                btn.setBackgroundColor(0xFFFFFFFF.toInt())
+                btn.setTextColor(0xFF000000.toInt())
             }
         }
     }
@@ -154,7 +190,6 @@ class PostWriteFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            // ✅ 로딩 시작
             binding.btnNext.isEnabled = false
             binding.progressBar.visibility = View.VISIBLE
 
@@ -210,17 +245,12 @@ class PostWriteFragment : Fragment() {
             .add(post)
             .addOnSuccessListener {
                 Toast.makeText(context, "게시물이 업로드되었습니다.", Toast.LENGTH_SHORT).show()
-
-                // ✅ 로딩 종료
                 binding.progressBar.visibility = View.GONE
                 binding.btnNext.isEnabled = true
-
                 findNavController().navigate(R.id.action_postWriteFragment_to_familyHomeFragment)
             }
             .addOnFailureListener {
                 Toast.makeText(context, "업로드 실패: ${it.message}", Toast.LENGTH_SHORT).show()
-
-                // ✅ 로딩 종료
                 binding.progressBar.visibility = View.GONE
                 binding.btnNext.isEnabled = true
             }

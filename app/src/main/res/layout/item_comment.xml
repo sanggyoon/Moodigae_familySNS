@@ -3,7 +3,10 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:background="@drawable/bg_comment_border"
+    android:gravity="center_vertical"
+    android:layout_marginBottom="8dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_comment_profile"
@@ -33,4 +36,13 @@
             android:text="댓글 내용"
             android:textSize="14sp" />
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/btn_comment_tts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_media_play"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="재생"
+        android:tint="@color/black"/>
 </LinearLayout>

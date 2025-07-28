@@ -264,11 +264,11 @@
                 android:textSize="14sp" />
 
             <ImageButton
-                android:id="@+id/btn_use_mice"
+                android:id="@+id/btn_use_mic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:src="@android:drawable/ic_menu_send" />
+                android:src="@drawable/ic_open_mic" />
 
             <ImageButton
                 android:id="@+id/btn_send_comment"
