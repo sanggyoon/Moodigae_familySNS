@@ -7,9 +7,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.familysns.R
 
 class InviteFragment : Fragment() {
@@ -24,6 +26,19 @@ class InviteFragment : Fragment() {
         val channelCodeDisplay = view.findViewById<TextView>(R.id.channel_code_display)
         channelCodeDisplay.setOnClickListener {
             copyToClipboard(channelCodeDisplay.text.toString())
+        }
+
+        // 버튼 기능 추가
+        val backButton = view.findViewById<ImageView>(R.id.btn_back)
+        val nextButton = view.findViewById<ImageView>(R.id.btn_next)
+
+        backButton?.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        nextButton?.setOnClickListener {
+            // 다음 화면으로 이동 (홈 화면으로 이동)
+            findNavController().navigate(R.id.homeFragment)
         }
 
         return view

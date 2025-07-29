@@ -4,16 +4,88 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/login_background"
     android:padding="24dp">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_google_login"
+    <!-- 메인 제목 텍스트 -->
+    <TextView
+        android:id="@+id/tv_login_title_line1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/google_login"
+        android:text="@string/login_title_line1"
+        android:textColor="@color/login_title_color"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/pretendard_medium"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="120dp" />
+
+    <TextView
+        android:id="@+id/tv_login_title_line2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_title_line2"
+        android:textColor="@color/login_title_color"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/pretendard_medium"
+        app:layout_constraintTop_toBottomOf="@id/tv_login_title_line1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp" />
+
+    <!-- 플레이스홀더 텍스트 (로고/이미지 영역) -->
+    <TextView
+        android:id="@+id/tv_login_placeholder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_placeholder"
+        android:textColor="@color/login_placeholder_color"
+        android:textSize="16sp"
+        android:fontFamily="@font/pretendard_regular"
+        app:layout_constraintTop_toBottomOf="@id/tv_login_title_line2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="80dp" />
+
+    <!-- Google 로그인 버튼 -->
+    <RelativeLayout
+        android:id="@+id/btn_google_login"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:background="@drawable/google_login_button_bg"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="100dp">
+
+        <!-- Google 로고 -->
+        <ImageView
+            android:id="@+id/iv_google_logo"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/ic_google" />
+
+        <!-- 로그인 텍스트 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/iv_google_logo"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="12dp"
+            android:text="@string/google_login"
+            android:textColor="@color/login_title_color"
+            android:textSize="16sp"
+            android:fontFamily="@font/pretendard_medium" />
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,84 +1,349 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/family_home_scroll"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="#FFFFFF">
+    android:background="#F4F4F5"
+    android:padding="20dp">
 
-    <LinearLayout
-        android:id="@+id/family_home_container"
+    <!-- 가족 채널 이름 헤더 -->
+    <TextView
+        android:id="@+id/text_family_channel_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="40dp"
+        android:text="@string/family_channel_name"
+        android:textAppearance="@style/FamilyChannelNameStyle"
+        android:gravity="center" />
 
-        <!-- 가훈 -->
-        <TextView
-            android:id="@+id/text_motto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:text="하는 일마다 잘 되리라"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:layout_marginBottom="24dp" />
+    <!-- 가훈 컨테이너 -->
+    <RelativeLayout
+        android:id="@+id/frame_20856"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:layout_below="@id/text_family_channel_name"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/frame_20856">
 
-        <!-- 이번주 공유한 소식 -->
+        <!-- 가훈 아이콘 -->
         <TextView
+            android:id="@+id/text_family_motto_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="이번주 공유한 소식"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:layout_marginBottom="12dp" />
-
-        <!-- 요일별 사진 -->
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:id="@+id/weekly_photos_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-        </HorizontalScrollView>
-
-        <!-- 오늘의 가족 소식 -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="오늘의 가족 소식"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:layout_marginBottom="12dp" />
-
-        <!-- 스크롤 가능한 카드 리스트 -->
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none">
-
-            <LinearLayout
-                android:id="@+id/today_posts_container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-        </HorizontalScrollView>
-
-        <!-- 소식 공유하기 버튼 -->
-        <Button
-            android:id="@+id/btn_share_post"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+ 소식 공유하기"
-            android:layout_gravity="center_horizontal"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="@string/family_motto"
+            android:textSize="14sp"
             android:textColor="#FFFFFF"
-            android:layout_marginTop="16dp"
-            android:paddingHorizontal="24dp" />
+            android:background="#000000"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp"
+            android:gravity="center" />
+
+        <!-- 가훈 텍스트 -->
+        <TextView
+            android:id="@+id/text_family_motto"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:layout_toRightOf="@id/text_family_motto_icon"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:text="@string/family_motto_text"
+            android:textAppearance="@style/WeeklyNewsTitleStyle"
+            android:gravity="center_vertical" />
+
+    </RelativeLayout>
+
+    <!-- 이번주 공유한 소식 섹션 -->
+    <TextView
+        android:id="@+id/text_weekly_news"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/frame_20856"
+        android:layout_marginTop="32dp"
+        android:text="@string/weekly_shared_news"
+        android:textAppearance="@style/WeeklyNewsTitleStyle" />
+
+    <!-- 주간 사진 스크롤 -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_weekly_news"
+        android:layout_marginTop="16dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- 월요일 사진 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginEnd="12dp">
+
+                <View
+                    android:id="@+id/weekly_photo_container"
+                    android:layout_width="139dp"
+                    android:layout_height="140dp"
+                    android:background="@drawable/weekly_photo_container" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:text="월"
+                    android:textSize="14sp"
+                    android:textColor="#666666" />
+
+            </LinearLayout>
+
+            <!-- 화요일 사진 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginEnd="12dp">
+
+                <View
+                    android:layout_width="139dp"
+                    android:layout_height="140dp"
+                    android:background="#FFFFFF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:text="화"
+                    android:textSize="14sp"
+                    android:textColor="#666666" />
+
+            </LinearLayout>
+
+            <!-- 수요일 사진 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginEnd="12dp">
+
+                <View
+                    android:layout_width="139dp"
+                    android:layout_height="140dp"
+                    android:background="#FFFFFF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:text="수"
+                    android:textSize="14sp"
+                    android:textColor="#666666" />
+
+            </LinearLayout>
+
+            <!-- 목요일 사진 -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginEnd="12dp">
+
+                <View
+                    android:layout_width="139dp"
+                    android:layout_height="140dp"
+                    android:background="#FFFFFF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:text="목"
+                    android:textSize="14sp"
+                    android:textColor="#666666" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <!-- 최근 가족 소식 섹션 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_weekly_news"
+        android:layout_marginTop="200dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/recent_family_news"
+            android:textAppearance="@style/RecentNewsTitleStyle" />
+
+        <!-- 새 소식 개수 배지 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/new_count"
+            android:textSize="12sp"
+            android:textColor="#FFFFFF"
+            android:background="#FF4444"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:gravity="center" />
 
     </LinearLayout>
-</ScrollView>
+
+    <!-- 최근 가족 소식 카드 스크롤 -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text_weekly_news"
+        android:layout_marginTop="240dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- 첫 번째 소식 카드 -->
+            <RelativeLayout
+                android:layout_width="280dp"
+                android:layout_height="200dp"
+                android:layout_marginEnd="16dp"
+                android:background="#FFFFFF"
+                android:padding="16dp">
+
+                <!-- 소식 이미지 -->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_alignParentTop="true"
+                    android:background="#E3F2FD"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_launcher_background" />
+
+                <!-- 소식 공유하기 버튼 오버레이 -->
+
+                <!-- 사용자 정보 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/btn_share_news"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <!-- 프로필 이미지 -->
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="#CCCCCC"
+                        android:src="@drawable/ic_launcher_background" />
+
+                    <!-- 사용자 이름 -->
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/user_name"
+                        android:textSize="14sp"
+                        android:textColor="#262626" />
+
+                    <!-- 시간 -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/time_ago"
+                        android:textSize="12sp"
+                        android:textColor="#666666" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <!-- 두 번째 소식 카드 (부분적으로 보임) -->
+            <RelativeLayout
+                android:layout_width="280dp"
+                android:layout_height="200dp"
+                android:background="#FFFFFF"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_alignParentTop="true"
+                    android:background="#F0F0F0"
+                    android:scaleType="centerCrop" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="#CCCCCC" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"
+                        android:text="사용자"
+                        android:textSize="14sp"
+                        android:textColor="#262626" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1시간전"
+                        android:textSize="12sp"
+                        android:textColor="#666666" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <Button
+        android:id="@+id/btn_share_news"
+        android:layout_width="151dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="755dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginRight="-11dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/btn_gradient_blue"
+        android:drawableStart="@drawable/ic_launcher_background"
+        android:drawablePadding="4dp"
+        android:gravity="center"
+        android:text="@string/share_news"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp" />
+
+</RelativeLayout>

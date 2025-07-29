@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -31,8 +31,10 @@ class CreateChannelFragment : Fragment() {
         val editTitle = view.findViewById<EditText>(R.id.edit_channel_input_title)
         val editPassword = view.findViewById<EditText>(R.id.edit_channel_input_password)
         val editMotto = view.findViewById<EditText>(R.id.edit_channel_input_motto)
-        val backButton = view.findViewById<Button>(R.id.btn_back)
-        val nextButton = view.findViewById<Button>(R.id.btn_next)
+        
+        // include된 버튼에서 찾기 (ImageView로 변경)
+        val backButton = view.findViewById<ImageView>(R.id.btn_back)
+        val nextButton = view.findViewById<ImageView>(R.id.btn_next)
 
         backButton?.setOnClickListener {
             findNavController().popBackStack()
