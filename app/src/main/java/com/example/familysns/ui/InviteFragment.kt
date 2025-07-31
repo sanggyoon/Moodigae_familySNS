@@ -7,38 +7,52 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.familysns.R
+import com.example.familysns.util.PrefsHelper
 
 class InviteFragment : Fragment() {
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val view = inflater.inflate(R.layout.fragment_invite, container, false)
 
+        // SharedPreferences에서 familyId 가져오기
+        val familyId = PrefsHelper.getFamilyId(requireContext())
+        
         // 채널 코드 클릭 시 복사 기능
         val channelCodeDisplay = view.findViewById<TextView>(R.id.channel_code_display)
-        channelCodeDisplay.setOnClickListener {
+        channelCodeDisplay?.text = familyId ?: "N/A"
+        channelCodeDisplay?.setOnClickListener {
             copyToClipboard(channelCodeDisplay.text.toString())
         }
 
-        // 버튼 기능 추가
+        // 버튼 기능 추가 (ImageView와 Button 모두 지원)
         val backButton = view.findViewById<ImageView>(R.id.btn_back)
         val nextButton = view.findViewById<ImageView>(R.id.btn_next)
+        val btnNext = view.findViewById<Button>(R.id.btn_next)
+        val btnBack = view.findViewById<Button>(R.id.btn_back)
 
         backButton?.setOnClickListener {
             findNavController().popBackStack()
         }
 
         nextButton?.setOnClickListener {
-            // 다음 화면으로 이동 (홈 화면으로 이동)
-            findNavController().navigate(R.id.homeFragment)
+            findNavController().navigate(R.id.action_inviteFragment_to_familyHomeFragment)
+        }
+
+        btnBack?.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
+
+        btnNext?.setOnClickListener {
+            findNavController().navigate(R.id.action_inviteFragment_to_familyHomeFragment)
         }
 
         return view

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- 상단: 프로필 및 닫기 버튼 -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_profile_placeholder"
+                android:layout_alignParentStart="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_toEndOf="@id/iv_profile"
+                android:layout_marginStart="8dp">
+
+                <TextView
+                    android:id="@+id/tv_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="작성자 이름"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="시간"
+                    android:textColor="#888888"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <!-- 이미지 슬라이더 -->
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/image_slider"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- 페이지 인디케이터 -->
+        <LinearLayout
+            android:id="@+id/image_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="12dp" />
+
+        <!-- 메시지 -->
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="작성된 메세지가 표시됩니다."
+            android:textSize="15sp"
+            android:textColor="#222222"
+            android:layout_marginBottom="8dp" />
+
+        <!-- 함께한 가족 태그 -->
+        <LinearLayout
+            android:id="@+id/tag_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp" />
+
+        <!-- 이모지 반응 -->
+    <LinearLayout
+        android:id="@+id/reaction_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"
+        android:weightSum="6">
+        <!-- ❤️ 하트 반응 -->
+        <LinearLayout
+            android:id="@+id/btn_heart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginEnd="12dp">
+
+            <ImageView
+                android:id="@+id/icon_heart"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_emoji_heart"
+                android:contentDescription="하트" />
+
+            <TextView
+                android:id="@+id/count_heart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="#555555" />
+        </LinearLayout>
+
+        <!-- 👍 따봉 반응 -->
+        <LinearLayout
+            android:id="@+id/btn_thumb_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginEnd="12dp">
+
+            <ImageView
+                android:id="@+id/icon_thumb_up"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_emoji_thumb_up"
+                android:contentDescription="따봉" />
+
+            <TextView
+                android:id="@+id/count_thumb_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="#555555" />
+        </LinearLayout>
+
+        <!-- 😊 스마일 -->
+        <LinearLayout
+            android:id="@+id/btn_smile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginEnd="12dp">
+
+            <ImageView
+                android:id="@+id/icon_smile"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_emoji_smile"
+                android:contentDescription="스마일" />
+
+            <TextView
+                android:id="@+id/count_smile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="#555555" />
+        </LinearLayout>
+
+        <!-- 😢 슬픔 -->
+        <LinearLayout
+            android:id="@+id/btn_sad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginEnd="12dp">
+
+            <ImageView
+                android:id="@+id/icon_sad"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_emoji_sad"
+                android:contentDescription="슬픔" />
+
+            <TextView
+                android:id="@+id/count_sad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="#555555" />
+        </LinearLayout>
+
+        <!-- 😡 화남 -->
+        <LinearLayout
+            android:id="@+id/btn_upset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginEnd="12dp">
+
+            <ImageView
+                android:id="@+id/icon_upset"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_emoji_upset"
+                android:contentDescription="화남" />
+
+            <TextView
+                android:id="@+id/count_upset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="#555555" />
+        </LinearLayout>
+
+        <!-- 😲 놀람 -->
+        <LinearLayout
+            android:id="@+id/btn_surprise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/icon_surprise"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_emoji_surprise"
+                android:contentDescription="놀람" />
+
+            <TextView
+                android:id="@+id/count_surprise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="#555555" />
+        </LinearLayout>
+    </LinearLayout>
+
+        <!-- 댓글 입력 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#F5F5F5"
+            android:padding="8dp"
+            android:layout_marginBottom="32dp"
+            android:gravity="center_vertical">
+
+            <EditText
+                android:id="@+id/edit_comment"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="가족에게 어떤 말을 남겨볼까요?"
+                android:background="@null"
+                android:padding="8dp"
+                android:textSize="14sp" />
+
+            <ImageButton
+                android:id="@+id/btn_use_mic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_open_mic" />
+
+            <ImageButton
+                android:id="@+id/btn_send_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:src="@android:drawable/ic_menu_send" />
+        </LinearLayout>
+
+        <!-- 반응 및 댓글 안내 -->
+        <LinearLayout
+            android:id="@+id/comment_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp" />
+
+    </LinearLayout>
+</ScrollView>

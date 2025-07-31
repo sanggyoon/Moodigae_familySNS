@@ -17,6 +17,7 @@
         android:textAppearance="@style/FamilyChannelNameStyle"
         android:gravity="center" />
 
+<<<<<<< HEAD
     <!-- 가훈 컨테이너 -->
     <RelativeLayout
         android:id="@+id/frame_20856"
@@ -25,16 +26,85 @@
         android:layout_below="@id/text_family_channel_name"
         android:layout_marginTop="20dp"
         android:background="@drawable/frame_20856">
+=======
+        <!-- 가족 채널 이름 -->
+        <TextView
+            android:id="@+id/text_family_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"/>
+
+        <!-- 가훈 -->
+        <TextView
+            android:id="@+id/text_motto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_marginBottom="24dp" />
+>>>>>>> origin/main
 
         <!-- 가훈 아이콘 -->
         <TextView
             android:id="@+id/text_family_motto_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:text="@string/family_motto"
             android:textSize="14sp"
+=======
+            android:text="이번주 공유한 소식"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginBottom="12dp" />
+
+        <!-- 요일별 사진 -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/weekly_photos_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
+
+        <!-- 최근 가족 소식 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="최근 가족 소식"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginBottom="12dp" />
+
+        <!-- 스크롤 가능한 카드 리스트 -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/today_posts_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
+
+        <Button
+            android:id="@+id/btn_share_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+ 소식 공유하기"
+            android:layout_gravity="center_horizontal"
+>>>>>>> origin/main
             android:textColor="#FFFFFF"
             android:background="#000000"
             android:paddingHorizontal="12dp"

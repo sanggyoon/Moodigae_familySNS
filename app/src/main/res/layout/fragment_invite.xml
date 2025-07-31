@@ -4,70 +4,88 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="24dp">
+
+    <!-- 제목 -->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="가족 채널 만들기"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- 설명 텍스트 -->
     <TextView
-        android:id="@+id/channel_create_id"
-        android:layout_width="380dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="283dp"
-        android:layout_marginEnd="10dp"
-        android:gravity="center_horizontal|top"
-        android:lineSpacingExtra="2sp"
-        android:text="@string/channel_creat_id"
-        android:textAppearance="@style/channel_creat_id"
-        android:translationY="-0.96sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
+        android:id="@+id/tv_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="가족 채널이 만들어졌어요.\n아이디를 공유하고, 다른 가족들을 초대해볼까요?"
+        android:textAlignment="center"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_max="324dp" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- 채널 코드 텍스트 -->
+    <!-- 채널 코드 라벨 -->
     <TextView
-        android:id="@+id/text_channel_creat_code"
-        android:layout_width="132dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="400dp"
-        android:gravity="center_horizontal|top"
-        android:text="@string/text_channel_creat_code"
-        android:textAppearance="@style/text_channel_creat_code"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?android:attr/selectableItemBackground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
+        android:id="@+id/tv_channel_id_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="우리 가족 채널 아이디"
+        android:textColor="#999999"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_description"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- 실제 채널 코드 (클릭 가능) -->
     <TextView
         android:id="@+id/channel_code_display"
-        android:layout_width="132dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="430dp"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="@string/channel_code_example"
-        android:textAppearance="@style/text_channel_creat_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="여기 가족 채널 ID가 표시됩니다."
+        android:textColor="@color/blue"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
         android:clickable="true"
         android:focusable="true"
         android:background="?android:attr/selectableItemBackground"
-        android:textColor="#007AFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- 기존 버튼 레이아웃을 include로 교체 -->
-    <include
-        android:id="@+id/button_prev_next"
-        layout="@layout/fragment_button_prev_next"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_channel_id_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- 버튼 컨테이너 -->
+    <LinearLayout
+        android:id="@+id/button_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="뒤로" />
+
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="다음" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

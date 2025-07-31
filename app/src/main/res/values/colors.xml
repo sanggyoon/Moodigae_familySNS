@@ -2,6 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="blue">#2962FF</color>
 
     <!-- 커스텀 색상 추가 -->
     <color name="button_text_blue">#3568D6</color>

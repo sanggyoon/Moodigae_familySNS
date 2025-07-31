@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.familysns.R
+import com.example.familysns.util.PrefsHelper
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -65,9 +66,23 @@ class CreateChannelFragment : Fragment() {
 
             firestore.collection("families")
                 .add(familyData)
-                .addOnSuccessListener {
-                    Toast.makeText(requireContext(), "채널이 생성되었습니다.", Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.action_createChannelFragment_to_inviteFragment)
+                .addOnSuccessListener { documentRef ->
+                    val familyId = documentRef.id
+                    val userId = auth.currentUser?.uid ?: return@addOnSuccessListener
+
+                    // SharedPreferences에 저장
+                    PrefsHelper.saveFamilyId(requireContext(), familyId)
+
+                    // 🔥 users 컬렉션의 현재 사용자 문서에 familyId 배열 추가
+                    firestore.collection("users").document(userId)
+                        .update("familyId", com.google.firebase.firestore.FieldValue.arrayUnion(familyId))
+                        .addOnSuccessListener {
+                            Toast.makeText(requireContext(), "채널이 생성되었습니다.", Toast.LENGTH_SHORT).show()
+                            findNavController().navigate(R.id.action_createChannelFragment_to_inviteFragment)
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(requireContext(), "사용자 정보 업데이트 실패: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(requireContext(), "채널 생성 실패: ${e.message}", Toast.LENGTH_SHORT).show()
