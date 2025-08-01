@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -27,28 +26,18 @@ class InviteFragment : Fragment() {
         val familyId = PrefsHelper.getFamilyId(requireContext())
         
         // 채널 코드 클릭 시 복사 기능
-        val channelCodeDisplay = view.findViewById<TextView>(R.id.channel_code_display)
+        val channelCodeDisplay = view.findViewById<TextView>(R.id.tv_channel_id)
         channelCodeDisplay?.text = familyId ?: "N/A"
         channelCodeDisplay?.setOnClickListener {
             copyToClipboard(channelCodeDisplay.text.toString())
         }
 
-        // 버튼 기능 추가 (ImageView와 Button 모두 지원)
-        val backButton = view.findViewById<ImageView>(R.id.btn_back)
-        val nextButton = view.findViewById<ImageView>(R.id.btn_next)
-        val btnNext = view.findViewById<Button>(R.id.btn_next)
-        val btnBack = view.findViewById<Button>(R.id.btn_back)
-
-        backButton?.setOnClickListener {
-            findNavController().popBackStack()
-        }
-
-        nextButton?.setOnClickListener {
-            findNavController().navigate(R.id.action_inviteFragment_to_familyHomeFragment)
-        }
+        // 버튼 기능 추가 (include된 레이아웃에서 버튼 찾기)
+        val btnBack = view.findViewById<ImageView>(R.id.btn_back)
+        val btnNext = view.findViewById<ImageView>(R.id.btn_next)
 
         btnBack?.setOnClickListener {
-            requireActivity().onBackPressedDispatcher.onBackPressed()
+            findNavController().popBackStack()
         }
 
         btnNext?.setOnClickListener {
