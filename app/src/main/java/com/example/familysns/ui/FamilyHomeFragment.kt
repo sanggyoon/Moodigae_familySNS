@@ -259,7 +259,7 @@ class FamilyHomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         
         // 소식 공유하기 버튼 클릭 리스너
-        view.findViewById<View>(R.id.btn_share_news).setOnClickListener {
+        view.findViewById<View>(R.id.btn_share_post).setOnClickListener {
             // TODO: 사진 선택 화면으로 이동
             // navigateToPhotoSelection()
         }

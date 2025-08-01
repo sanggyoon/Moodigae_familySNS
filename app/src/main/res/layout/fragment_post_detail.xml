@@ -104,8 +104,8 @@
 
             <ImageView
                 android:id="@+id/icon_heart"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/ic_emoji_heart"
                 android:contentDescription="하트" />
 
@@ -129,8 +129,8 @@
 
             <ImageView
                 android:id="@+id/icon_thumb_up"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/ic_emoji_thumb_up"
                 android:contentDescription="따봉" />
 
@@ -154,8 +154,8 @@
 
             <ImageView
                 android:id="@+id/icon_smile"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/ic_emoji_smile"
                 android:contentDescription="스마일" />
 
@@ -179,8 +179,8 @@
 
             <ImageView
                 android:id="@+id/icon_sad"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/ic_emoji_sad"
                 android:contentDescription="슬픔" />
 
@@ -204,8 +204,8 @@
 
             <ImageView
                 android:id="@+id/icon_upset"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/ic_emoji_upset"
                 android:contentDescription="화남" />
 
@@ -228,8 +228,8 @@
 
             <ImageView
                 android:id="@+id/icon_surprise"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:src="@drawable/ic_emoji_surprise"
                 android:contentDescription="놀람" />
 

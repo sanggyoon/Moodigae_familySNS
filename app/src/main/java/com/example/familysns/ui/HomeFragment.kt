@@ -18,7 +18,7 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         val createChannelButton = view.findViewById<Button>(R.id.btn_create_channel)
-        val enterChannelButton = view.findViewById<Button>(R.id.btn_enter_channel)
+        val enterChannelButton = view.findViewById<Button>(R.id.btn_join_channel)
 
         createChannelButton?.setOnClickListener {
             findNavController().navigate(R.id.createChannelFragment)

@@ -23,11 +23,11 @@
     <fragment
         android:id="@+id/enterChannelFragment"
         android:name="com.example.familysns.ui.EnterChannelFragment"
-        android:label="Enter Channel" />
-
+        android:label="Enter Channel">
         <action
             android:id="@+id/action_enterChannelFragment_to_familyHomeFragment"
             app:destination="@id/familyHomeFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/familyHomeFragment"
@@ -52,7 +52,14 @@
 
         <action
             android:id="@+id/action_familyHomeFragment_to_postDetailFragment"
-            app:destination="@id/postDetailFragment" />
+            app:destination="@id/postDetailFragment">
+            <argument
+                android:name="postId"
+                app:argType="string" />
+            <argument
+                android:name="familyId"
+                app:argType="string" />
+        </action>
     </fragment>
 
     <fragment
@@ -83,10 +90,11 @@
         android:id="@+id/createChannelFragment"
         android:name="com.example.familysns.ui.CreateChannelFragment"
         android:label="fragment_create_channel"
-        tools:layout="@layout/fragment_create_channel" />
-    <action
-        android:id="@+id/action_createChannelFragment_to_inviteFragment"
-        app:destination="@id/inviteFragment" />
+        tools:layout="@layout/fragment_create_channel">
+        <action
+            android:id="@+id/action_createChannelFragment_to_inviteFragment"
+            app:destination="@id/inviteFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/inviteFragment"

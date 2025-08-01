@@ -1,72 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/login_background"
-    android:padding="24dp">
+    android:background="@color/login_background">
 
-    <!-- 메인 제목 텍스트 -->
+    <!-- 메인 텍스트 -->
     <TextView
-        android:id="@+id/tv_login_title_line1"
+        android:id="@+id/tv_login_main_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/login_title_line1"
-        android:textColor="@color/login_title_color"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:fontFamily="@font/pretendard_medium"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="120dp" />
-
-    <TextView
-        android:id="@+id/tv_login_title_line2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login_title_line2"
-        android:textColor="@color/login_title_color"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:fontFamily="@font/pretendard_medium"
-        app:layout_constraintTop_toBottomOf="@id/tv_login_title_line1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="4dp" />
-
-    <!-- 플레이스홀더 텍스트 (로고/이미지 영역) -->
-    <TextView
-        android:id="@+id/tv_login_placeholder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login_placeholder"
-        android:textColor="@color/login_placeholder_color"
-        android:textSize="16sp"
-        android:fontFamily="@font/pretendard_regular"
-        app:layout_constraintTop_toBottomOf="@id/tv_login_title_line2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="80dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="217dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/login_main_text"
+        android:textAppearance="@style/LoginMainTextStyle"
+        android:lineSpacingExtra="3sp"
+        android:translationY="-1.49sp"
+        android:gravity="center_horizontal|top" />
 
     <!-- Google 로그인 버튼 -->
     <RelativeLayout
         android:id="@+id/btn_google_login"
-        android:layout_width="0dp"
+        android:layout_width="372dp"
         android:layout_height="54dp"
-        android:background="@drawable/google_login_button_bg"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/bg_google_login_button"
         android:clickable="true"
         android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="100dp">
+        android:foreground="?android:attr/selectableItemBackground">
 
         <!-- Google 로고 -->
         <ImageView
-            android:id="@+id/iv_google_logo"
+            android:id="@+id/iv_google_logo"    
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignParentStart="true"
@@ -88,4 +57,13 @@
 
     </RelativeLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- 가족 일러스트레이션 -->
+    <View
+        android:id="@+id/v_family_illustration"
+        android:layout_width="412dp"
+        android:layout_height="412dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/app_illustration" />
+
+</RelativeLayout>

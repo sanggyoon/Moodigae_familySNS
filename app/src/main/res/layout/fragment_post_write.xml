@@ -66,12 +66,12 @@
 
             <ImageView
                 android:id="@+id/btn_mic"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:src="@drawable/ic_open_mic"
                 android:contentDescription="음성 입력"
-                android:tint="@color/black" />
+                app:tint="@color/black" />
         </LinearLayout>
 
         <!-- 4. 누구와 함께 했나요? -->
